@@ -8,7 +8,11 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB || "mongodb://localhost/test");
+mongoose.connect(
+  process.env.MONGODB ||
+    `mongodb://${process.env.DB_USER}:${process.env
+      .DB_PW}@ds111922.mlab.com:11922/nextjs`
+);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.on("connected", () => {
