@@ -7,6 +7,8 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 mongoose.connect(
   process.env.MONGODB ||
