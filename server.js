@@ -31,6 +31,11 @@ app.prepare().then(() => {
     res.render(req, res, "/abc", req.query);
   });
 
+  // Serve the about page with next.js as renderer
+  server.get("/about", (req, res) => {
+    res.render(req, res, "/about", req.query);
+  });
+
   // Fall-back on other next.js assets.
   server.get("*", (req, res) => {
     return handle(req, res);

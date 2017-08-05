@@ -13,4 +13,9 @@ export default () =>
         <a>ABC</a>
       </Link>
     </li>
+    <li>
+      <Link href="/about">
+        <a>About Page</a>
+      </Link>
+    </li>
   </ul>;
