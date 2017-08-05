@@ -27,56 +27,36 @@ exports.default = function () {
       fileName: _jsxFileName,
       lineNumber: 6
     }
-  }, _react2.default.createElement(_link2.default, { href: "/item", __source: {
+  }, _react2.default.createElement("a", { href: "/item", __source: {
       fileName: _jsxFileName,
       lineNumber: 7
     }
-  }, _react2.default.createElement("a", {
+  }, "View Item")), _react2.default.createElement("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 9
     }
-  }, "View Item"))), _react2.default.createElement("li", {
-    __source: {
+  }, _react2.default.createElement("a", { href: "/abc", __source: {
       fileName: _jsxFileName,
-      lineNumber: 11
+      lineNumber: 10
     }
-  }, _react2.default.createElement(_link2.default, { href: "/abc", __source: {
+  }, "ABC")), _react2.default.createElement("li", {
+    __source: {
       fileName: _jsxFileName,
       lineNumber: 12
     }
-  }, _react2.default.createElement("a", {
-    __source: {
+  }, _react2.default.createElement("a", { href: "/about", __source: {
       fileName: _jsxFileName,
       lineNumber: 13
     }
-  }, "ABC"))), _react2.default.createElement("li", {
+  }, "About Page")), _react2.default.createElement("li", {
     __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
+    }
+  }, _react2.default.createElement("a", { href: "/find", __source: {
       fileName: _jsxFileName,
       lineNumber: 16
     }
-  }, _react2.default.createElement(_link2.default, { href: "/about", __source: {
-      fileName: _jsxFileName,
-      lineNumber: 17
-    }
-  }, _react2.default.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 18
-    }
-  }, "About Page"))), _react2.default.createElement("li", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 21
-    }
-  }, _react2.default.createElement(_link2.default, { href: "/find", __source: {
-      fileName: _jsxFileName,
-      lineNumber: 22
-    }
-  }, _react2.default.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 23
-    }
-  }, "Find Item"))));
+  }, "Find Item")));
 };

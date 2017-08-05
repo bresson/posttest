@@ -2,7 +2,7 @@ import { Component } from "react";
 import Link from "next/link";
 import fetch from "isomorphic-fetch";
 
-export default class extends Component {
+export default class Item extends Component {
   static async getInitialProps({ req, query }) {
     const isServer = !!req;
 

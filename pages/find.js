@@ -2,7 +2,7 @@ import { Component } from "react";
 import Link from "next/link";
 import fetch from "isomorphic-fetch";
 
-export default class extends Component {
+export default class Find extends Component {
   static async getInitialProps({ req, query }) {
     const isServer = !!req;
 
@@ -12,7 +12,7 @@ export default class extends Component {
       // When being rendered server-side, we have access to our data in query that we put there in routes/item.js,
       // saving us an http call. Note that if we were to try to require('../operations/get-item') here,
       // it would result in a webpack error.
-      return { item: query.foundItems };
+      return { item: query.item[0] };
     } else {
       // On the client, we should fetch the data remotely
       const res = await fetch("/_data/findItems", {

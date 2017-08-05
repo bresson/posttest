@@ -37,18 +37,24 @@ app.prepare().then(() => {
   });
 
   server.get("/abc", (req, res) => {
-    res.render(req, res, "/abc", req.query);
+    app.render(req, res, "/abc", req.query);
   });
 
-  // Serve the about page with next.js as renderer
   server.get("/about", (req, res) => {
-    res.render(req, res, "/about", req.query);
+    app.render(req, res, "/abc", req.query);
   });
 
   // Find items in mongodb
+  // server.get("/find", (req, res) => {
+  //   const foundItems = dbSearch.findItems();
+  //   res.render(req, res, "/find", { foundItems });
+  // });
   server.get("/find", (req, res) => {
     const foundItems = dbSearch.findItems();
-    res.render(req, res, "/find", { foundItems });
+    foundItems.then(item => {
+      console.log("Found docs: ", item);
+      app.render(req, res, "/find", { item });
+    });
   });
 
   // When rendering client-side, we will request the same data from this route

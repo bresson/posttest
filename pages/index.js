@@ -4,23 +4,15 @@ import Link from "next/link";
 export default () =>
   <ul>
     <li>
-      <Link href="/item">
-        <a>View Item</a>
-      </Link>
+      <a href="/item">View Item</a>
     </li>
     <li>
-      <Link href="/abc">
-        <a>ABC</a>
-      </Link>
+      <a href="/abc">ABC</a>
     </li>
     <li>
-      <Link href="/about">
-        <a>About Page</a>
-      </Link>
+      <a href="/about">About Page</a>
     </li>
     <li>
-      <Link href="/find">
-        <a>Find Item</a>
-      </Link>
+      <a href="/find">Find Item</a>
     </li>
   </ul>;
