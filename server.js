@@ -1,10 +1,19 @@
 const express = require("express");
 const next = require("next");
 const api = require("./operations/get-item");
+const dbSearch = require("./operations/find-item");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGODB || "mongodb://localhost/test");
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.on("connected", () => {
+  console.log("connected to mongodb");
+});
 
 app.prepare().then(() => {
   const server = express();
@@ -36,6 +45,20 @@ app.prepare().then(() => {
     res.render(req, res, "/about", req.query);
   });
 
+  // Find items in mongodb
+  server.get("/find", (req, res) => {
+    const foundItems = dbSearch.findItems();
+    res.render(req, res, "/find", { foundItems });
+  });
+
+  // When rendering client-side, we will request the same data from this route
+  server.get("/_data/findItems", (req, res) => {
+    const items = dbSearch.findItems();
+    items.then(foundItems => {
+      console.log("Found docs: ", foundItems[0]);
+      res.json(foundItems[0]);
+    });
+  });
   // Fall-back on other next.js assets.
   server.get("*", (req, res) => {
     return handle(req, res);

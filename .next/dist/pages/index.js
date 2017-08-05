@@ -64,5 +64,19 @@ exports.default = function () {
       fileName: _jsxFileName,
       lineNumber: 18
     }
-  }, "About Page"))));
+  }, "About Page"))), _react2.default.createElement("li", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21
+    }
+  }, _react2.default.createElement(_link2.default, { href: "/find", __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    }
+  }, _react2.default.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    }
+  }, "Find Item"))));
 };

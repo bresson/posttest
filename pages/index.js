@@ -18,4 +18,9 @@ export default () =>
         <a>About Page</a>
       </Link>
     </li>
+    <li>
+      <Link href="/find">
+        <a>Find Item</a>
+      </Link>
+    </li>
   </ul>;

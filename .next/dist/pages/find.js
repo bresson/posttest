@@ -46,7 +46,7 @@ var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _jsxFileName = "/media/larry/B89880DC98809B10/Javascript/NextJs/expressAPI/pages/item.js?entry";
+var _jsxFileName = "/media/larry/B89880DC98809B10/Javascript/NextJs/expressAPI/pages/find.js?entry";
 
 
 var _class = function (_Component) {
@@ -111,11 +111,11 @@ var _class = function (_Component) {
                   break;
                 }
 
-                return _context.abrupt("return", { item: query.itemData });
+                return _context.abrupt("return", { item: query.foundItems });
 
               case 6:
                 _context.next = 8;
-                return (0, _isomorphicFetch2.default)("/_data/item", {
+                return (0, _isomorphicFetch2.default)("/_data/findItems", {
                   headers: { Accept: "application/json" }
                 });
 
