@@ -20,12 +20,22 @@ export default () =>
     </li>
     <li>
       <Link as="/find">
-        <a>Find Item</a>
+        <a>Find Items</a>
       </Link>
     </li>
     <li>
       <Link href="/form">
         <a>Get Form</a>
       </Link>
+    </li>
+    <li>
+      <Link href="/loginform">
+        <a>Login</a>
+      </Link>
+    </li>
+    <li>
+      <a href="/logout" as="/index">
+        Log Out
+      </a>
     </li>
   </ul>;

@@ -1,10 +1,13 @@
 const express = require("express");
 const next = require("next");
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const api = require("./operations/get-item");
 const insertItem = require("./operations/insert-item");
 
 const Data = require("./data/Data");
+const User = require("./data/User");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -28,6 +31,28 @@ app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());
+  server.use(
+    require("express-session")({
+      secret: "Secret",
+      resave: false,
+      saveUninitialized: false
+    })
+  );
+  server.use(passport.initialize());
+  server.use(passport.session());
+  passport.use(new LocalStrategy(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+
+  const middleware = {};
+  middleware.isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    } else {
+      res.redirect("/index");
+    }
+  };
+
   // Set up home page as a simple render of the page.
   server.get("/", (req, res) => {
     console.log("Render home page");
@@ -72,8 +97,30 @@ app.prepare().then(() => {
   });
 
   // Post data to mongodb
-  server.post("/insert", (req, res) => {
+  server.post("/insert", middleware.isLoggedIn, (req, res) => {
     insertItem.setItems(req.body);
+    console.log("Inserted doc");
+    app.render(req, res, "/index", req.query);
+  });
+
+  server.post("/login", passport.authenticate("local"), (req, res) => {
+    // const user = {
+    //   username: req.body.username
+    // };
+    // User.register(user, req.body.password, (err, user) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   passport.authenticate("local")(req, res, function() {
+    //     return app.render(req, res, "/", req.query);
+    //   });
+    // });
+    console.log("Logged in.");
+    res.redirect("/index");
+  });
+  server.get("/logout", (req, res) => {
+    req.logOut();
+    console.log("Logged out");
     app.render(req, res, "/index", req.query);
   });
 
