@@ -4,22 +4,28 @@ import Link from "next/link";
 export default () =>
   <ul>
     <li>
-      <Link href="/item" as="/object">
+      <Link as="/item">
         <a>View Item</a>
       </Link>
     </li>
     <li>
-      <a href="/abc">ABC</a>
+      <Link href="/abc">
+        <a>ABC</a>
+      </Link>
     </li>
     <li>
-      <a href="/about">About Page</a>
+      <Link href="/about">
+        <a>About Page</a>
+      </Link>
     </li>
     <li>
-      <Link href="/find" as="/objecttwo">
+      <Link as="/find">
         <a>Find Item</a>
       </Link>
     </li>
     <li>
-      <a href="/form">Get Form</a>
+      <Link href="/form">
+        <a>Get Form</a>
+      </Link>
     </li>
   </ul>;
