@@ -1,7 +1,10 @@
 const express = require("express");
 const next = require("next");
+const bodyParser = require("body-parser");
 const api = require("./operations/get-item");
-const dbSearch = require("./operations/find-item");
+const insertItem = require("./operations/insert-item");
+
+const Data = require("./data/Data");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -23,7 +26,8 @@ db.on("connected", () => {
 
 app.prepare().then(() => {
   const server = express();
-
+  server.use(bodyParser.urlencoded({ extended: false }));
+  server.use(bodyParser.json());
   // Set up home page as a simple render of the page.
   server.get("/", (req, res) => {
     console.log("Render home page");
@@ -42,35 +46,37 @@ app.prepare().then(() => {
     res.json(itemData);
   });
 
-  server.get("/abc", (req, res) => {
-    app.render(req, res, "/abc", req.query);
-  });
-
-  server.get("/about", (req, res) => {
-    app.render(req, res, "/abc", req.query);
-  });
-
-  // Find items in mongodb
-  // server.get("/find", (req, res) => {
-  //   const foundItems = dbSearch.findItems();
-  //   res.render(req, res, "/find", { foundItems });
-  // });
   server.get("/find", (req, res) => {
-    const foundItems = dbSearch.findItems();
-    foundItems.then(item => {
-      console.log("Found docs: ", item);
-      app.render(req, res, "/find", { item });
+    Data.find({}, (err, items) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      console.log("Finding docs Server-side: ", items);
+
+      app.render(req, res, "/find", { items });
     });
   });
 
   // When rendering client-side, we will request the same data from this route
   server.get("/_data/findItems", (req, res) => {
-    const items = dbSearch.findItems();
-    items.then(foundItems => {
-      console.log("Found docs: ", foundItems[0]);
-      res.json(foundItems[0]);
+    Data.find({}, (err, items) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      console.log("Finding docs: ", items);
+
+      return res.json(items);
     });
   });
+
+  // Post data to mongodb
+  server.post("/insert", (req, res) => {
+    insertItem.setItems(req.body);
+    app.render(req, res, "/index", req.query);
+  });
+
   // Fall-back on other next.js assets.
   server.get("*", (req, res) => {
     return handle(req, res);
