@@ -100,7 +100,7 @@ app.prepare().then(() => {
   server.post("/insert", middleware.isLoggedIn, (req, res) => {
     insertItem.setItems(req.body);
     console.log("Inserted doc");
-    app.render(req, res, "/index", req.query);
+    res.redirect("/");
   });
 
   server.post("/login", passport.authenticate("local"), (req, res) => {
@@ -121,7 +121,8 @@ app.prepare().then(() => {
   server.get("/logout", (req, res) => {
     req.logOut();
     console.log("Logged out");
-    app.render(req, res, "/index", req.query);
+    res.redirect("/");
+    // app.render(req, res, "/index", req.query);
   });
 
   // Fall-back on other next.js assets.

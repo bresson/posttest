@@ -4,9 +4,7 @@ import Link from "next/link";
 export default () =>
   <ul>
     <li>
-      <Link as="/item">
-        <a>View Item</a>
-      </Link>
+      <a href="/item">View Item</a>
     </li>
     <li>
       <Link href="/abc">
@@ -34,8 +32,6 @@ export default () =>
       </Link>
     </li>
     <li>
-      <a href="/logout" as="/index">
-        Log Out
-      </a>
+      <a href="/logout">Log Out</a>
     </li>
   </ul>;
