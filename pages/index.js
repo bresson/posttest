@@ -17,9 +17,7 @@ export default () =>
       </Link>
     </li>
     <li>
-      <Link as="/find">
-        <a>Find Items</a>
-      </Link>
+      <a href="/find">Find Items</a>
     </li>
     <li>
       <Link href="/form">
