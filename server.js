@@ -66,12 +66,12 @@ app.prepare().then(() => {
   });
 
   // When rendering client-side, we will request the same data from this route
-  server.get("/_data/item", (req, res) => {
-    const itemData = api.getItem();
-    res.json(itemData);
-  });
+  // server.get("/_data/item", (req, res) => {
+  //   const itemData = api.getItem();
+  //   res.json(itemData);
+  // });
 
-  server.get("/find", (req, res) => {
+  server.get("/find", middleware.isLoggedIn, (req, res) => {
     Data.find({}, (err, items) => {
       if (err) {
         console.error(err);
@@ -84,17 +84,17 @@ app.prepare().then(() => {
   });
 
   // When rendering client-side, we will request the same data from this route
-  server.get("/_data/findItems", (req, res) => {
-    Data.find({}, (err, items) => {
-      if (err) {
-        console.error(err);
-        throw err;
-      }
-      console.log("Finding docs: ", items);
+  // server.get("/_data/findItems", (req, res) => {
+  //   Data.find({}, (err, items) => {
+  //     if (err) {
+  //       console.error(err);
+  //       throw err;
+  //     }
+  //     console.log("Finding docs: ", items);
 
-      return res.json(items);
-    });
-  });
+  //     return res.json(items);
+  //   });
+  // });
 
   // Post data to mongodb
   server.post("/insert", middleware.isLoggedIn, (req, res) => {
@@ -102,22 +102,14 @@ app.prepare().then(() => {
     console.log("Inserted doc");
     res.redirect("/");
   });
-
+  // Login
   server.post("/login", passport.authenticate("local"), (req, res) => {
-    // const user = {
-    //   username: req.body.username
-    // };
-    // User.register(user, req.body.password, (err, user) => {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   passport.authenticate("local")(req, res, function() {
-    //     return app.render(req, res, "/", req.query);
-    //   });
-    // });
+    console.log(req.user);
     console.log("Logged in.");
+    const user = req.user;
     res.redirect("/index");
   });
+  // Logout
   server.get("/logout", (req, res) => {
     req.logOut();
     console.log("Logged out");
