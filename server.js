@@ -62,7 +62,8 @@ app.prepare().then(() => {
   // Serve the item webpage with next.js as the renderer
   server.get("/item", (req, res) => {
     const itemData = api.getItem();
-    app.render(req, res, "/item", { itemData });
+    return app.render(req, res, "/item", { itemData });
+    //app.render(req, res, "/item")
   });
 
   // When rendering client-side, we will request the same data from this route
@@ -104,17 +105,17 @@ app.prepare().then(() => {
   });
 
   server.post("/login", passport.authenticate("local"), (req, res) => {
-    // const user = {
-    //   username: req.body.username
-    // };
-    // User.register(user, req.body.password, (err, user) => {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   passport.authenticate("local")(req, res, function() {
-    //     return app.render(req, res, "/", req.query);
-    //   });
-    // });
+    const user = {
+      username: req.body.username
+    };
+    User.register(user, req.body.password, (err, user) => {
+      if (err) {
+        throw err;
+      }
+      passport.authenticate("local")(req, res, function() {
+        return app.render(req, res, "/", req.query);
+      });
+    });
     console.log("Logged in.");
     res.redirect("/index");
   });
