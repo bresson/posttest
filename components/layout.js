@@ -25,7 +25,7 @@ export default class extends React.Component {
       <div>
         <Header />
         <div className="container">
-        <button onClick = {() => this.settingState()}  />
+        <button style={{backgroundColor: 'black', color: 'white', fontSize: '1.5rem', lineHeight: '1.5', width: '10em'}} onClick = {() => this.settingState()} > Set New State </button>
         { React.Children.map(this.children, child => React.cloneElement(child, {...this.state}))}
    
      
